@@ -6,29 +6,52 @@ const library = new Library();
 
 // Get all books
 export const getAllBooks = () => {
-  return library.getAllBooks();
+  try {
+    return library.getAllBooks();
+  } catch (error) {
+    console.error("Failed to get books:", error.message);
+    return []; // return empty array if error occurs
+  }
 };
 
 // Add a new book
 export const addNewBook = (title, author) => {
-  if (!title || !author) {
-    throw new Error("Title and Author are required");
+  try {
+    if (!title || !author) {
+      throw new Error("Title and Author are required");
+    }
+    library.addBook(title, author);
+    return { success: true, message: "Book added successfully" };
+  } catch (error) {
+    console.error("Failed to add book:", error.message);
+    return { success: false, message: error.message };
   }
-  library.addBook(title, author);
 };
 
 // Borrow an existing book
 export const borrowExistingBook = (id) => {
-  const success = library.borrowBook(id);
-  if (!success) {
-    throw new Error("Book is already borrowed or does not exist");
+  try {
+    const success = library.borrowBook(id);
+    if (!success) {
+      throw new Error("Book is already borrowed or does not exist");
+    }
+    return { success: true, message: "Book borrowed successfully" };
+  } catch (error) {
+    console.error("Failed to borrow book:", error.message);
+    return { success: false, message: error.message };
   }
 };
 
 // Return an existing book
 export const returnExistingBook = (id) => {
-  const success = library.returnBook(id);
-  if (!success) {
-    throw new Error("Book was not borrowed or does not exist");
+  try {
+    const success = library.returnBook(id);
+    if (!success) {
+      throw new Error("Book was not borrowed or does not exist");
+    }
+    return { success: true, message: "Book returned successfully" };
+  } catch (error) {
+    console.error("Failed to return book:", error.message);
+    return { success: false, message: error.message };
   }
 };

@@ -19,31 +19,18 @@ export const getAddBook = (req, res) => {
 
 // Handle adding a new book
 export const addBook = (req, res) => {
-  const { title, author } = req.body;
-  try {
-    addNewBook(title, author);
-    res.redirect("/");
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  addNewBook(req.body.title, req.body.author);
+  res.redirect("/");
 };
 
 // Handle borrowing a book
 export const borrowBook = (req, res) => {
-  try {
-    borrowExistingBook(req.params.id);
-    res.redirect("/");
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  borrowExistingBook(req.params.id);
+  res.redirect("/");
 };
 
 // Handle returning a book
 export const returnBook = (req, res) => {
-  try {
-    returnExistingBook(req.params.id);
-    res.redirect("/");
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  returnExistingBook(req.params.id);
+  res.redirect("/");
 };
