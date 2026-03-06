@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      margin-right: 10px;
+      padding: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      margin-left: 5px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Library</h1>
+
+  <!-- Add Book Form -->
+  <input type="text" id="title" placeholder="Book Title">
+  <input type="text" id="author" placeholder="Author">
+  <button id="addBtn">Add Book</button>
+
+  <h2>Books</h2>
+  <ul id="bookList">
+    <!-- Books will be rendered here -->
+  </ul>
+
+  <!-- Link your JS file -->
+  <script src="/script.js" type="module"></script>
+</body>
+</html>
