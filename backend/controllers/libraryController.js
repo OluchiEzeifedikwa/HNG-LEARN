@@ -1,10 +1,13 @@
-import Library from "../models/Library.js";
-
-const library = new Library();
+// backend/controllers/libraryController.js
+import * as libraryService from "../services/libraryService.js";
 
 export const getHome = (req, res) => {
-  const books = library.getAllBooks();
-  res.render("index", { books });
+  try {
+    const books = libraryService.getAllBooks();
+    res.render("index", { books });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
 
 export const getAddBook = (req, res) => {
@@ -12,17 +15,29 @@ export const getAddBook = (req, res) => {
 };
 
 export const addBook = (req, res) => {
-  const { title, author } = req.body;
-  library.addBook(title, author);
-  res.redirect("/");
+  try {
+    const { title, author } = req.body;
+    libraryService.addNewBook(title, author);
+    res.redirect("/");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };
 
 export const borrowBook = (req, res) => {
-  library.borrowBook(req.params.id);
-  res.redirect("/");
+  try {
+    libraryService.borrowExistingBook(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };
 
 export const returnBook = (req, res) => {
-  library.returnBook(req.params.id);
-  res.redirect("/");
+  try {
+    libraryService.returnExistingBook(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };

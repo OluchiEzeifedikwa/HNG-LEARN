@@ -44,3 +44,10 @@ PORT=3000
 
 # Start the server
 npm start
+
+## Updates
+
+### Service Layer & Controller Refactor
+- Added `libraryService.js` for business logic.
+- Updated `libraryController.js` to use service methods.
+- Controllers now focus on request/response; services handle logic.
