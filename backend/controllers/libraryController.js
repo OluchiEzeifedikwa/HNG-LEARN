@@ -1,43 +1,49 @@
 // backend/controllers/libraryController.js
-import * as libraryService from "../services/libraryService.js";
+import {
+  getAllBooks,
+  addNewBook,
+  borrowExistingBook,
+  returnExistingBook
+} from "../services/libraryService.js";
 
+// Render home page with all books
 export const getHome = (req, res) => {
-  try {
-    const books = libraryService.getAllBooks();
-    res.render("index", { books });
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+  const books = getAllBooks();
+  res.render("index", { books });
 };
 
+// Render the add-book form
 export const getAddBook = (req, res) => {
   res.render("add-book");
 };
 
+// Handle adding a new book
 export const addBook = (req, res) => {
+  const { title, author } = req.body;
   try {
-    const { title, author } = req.body;
-    libraryService.addNewBook(title, author);
+    addNewBook(title, author);
     res.redirect("/");
-  } catch (error) {
-    res.status(400).send(error.message);
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 };
 
+// Handle borrowing a book
 export const borrowBook = (req, res) => {
   try {
-    libraryService.borrowExistingBook(req.params.id);
+    borrowExistingBook(req.params.id);
     res.redirect("/");
-  } catch (error) {
-    res.status(400).send(error.message);
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 };
 
+// Handle returning a book
 export const returnBook = (req, res) => {
   try {
-    libraryService.returnExistingBook(req.params.id);
+    returnExistingBook(req.params.id);
     res.redirect("/");
-  } catch (error) {
-    res.status(400).send(error.message);
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 };
